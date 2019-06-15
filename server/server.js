@@ -6,6 +6,7 @@ let app = express();
 
 app.use(cors());
 app.use(express.json()); 
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static('client')); //auto looks for index file
 
 app.use('/api', apiRouter);
