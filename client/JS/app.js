@@ -1,6 +1,7 @@
-const removeListItem = (res) => {
-    
-    $('ul').remove(res);
+const removeListItem = (id) => {
+
+    $('ul').find('li' + id).remove();
+
     alert('removeListItem worked')
 }
 
@@ -8,15 +9,15 @@ const deleteChirp = (id) => {
     alert('Button works');
     $.ajax({
         type: "DELETE",
-        url: `/api/chirps/${id}`,
-        // success: function (id) {
-        //     console.log(id);
-        //     $('li').remove(chirp[id]);
-        // }
-    })
-    .then(res => removeListItem(res));
-    
+        url: `/api/chirps/:${id}`,
+        data: JSON,
+        success: function() {
+            console.log();
+            // $('ul').find('li' + id).remove();
 
+        }
+    })
+        .then(() => removeListItem());
 }
 
 const getAllChirps = () => {
@@ -24,16 +25,16 @@ const getAllChirps = () => {
         type: "GET",
         url: "/api/chirps/"
     })
-    .then(chirps => {
-        $('ul').empty();
-        chirps.forEach(chirp => {
-            $('ul').append(`<li class="list-group-item"> 
+        .then(chirps => {
+            $('ul').empty();
+            chirps.forEach(chirp => {
+                $('ul').append(`<li class="list-group-item"> 
             ${chirp.text} 
             <button onclick="deleteChirp()"> X </button>
             </li>`)
+            })
         })
-    });
-}
+};
 getAllChirps();
 
 const postChirp = (text) => {
@@ -46,7 +47,7 @@ const postChirp = (text) => {
         url: '/api/chirps/',
         data: newChirp
     })
-    .then(() => getAllChirps());
+        .then(() => getAllChirps());
 };
 
 $('.btn').click(e => {
