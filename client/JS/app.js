@@ -41,20 +41,27 @@ const deleteChirp = (id) => {
     alert('Delete button works');
     $.ajax({
         type: "DELETE",
-        url: `/api/chirps/:${id}`,
-        
+        url: '/api/chirps/' + id,   
     })
-    .then(res => res.json())
     .then(() => {
-        $('li#' + id).remove(); // li returns to ul upon refresh
+        $('li#' + id).remove(); 
     })
 }
 getAllChirps();
 
-const updateChirp = () => {
+const updateChirp = (id, chirp) => {
+    
     $('#updateModal').modal();
     $('#saveBtn').on('click', function () {
-        $('#text').html($('#newInput').val());
+        let newMsg = $('#newInput').val();
+        $.ajax({
+            type: "PUT",
+            url: '/api/chirps/' + id,
+            data: {
+                text: newMsg
+            }
+        })
+        getAllChirps();
     })
 };
 
