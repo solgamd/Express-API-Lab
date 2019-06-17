@@ -1,24 +1,3 @@
-const removeListItem = (id) => {
-
-    $('ul').find('li' + id).remove();
-
-    alert('removeListItem worked')
-}
-
-const deleteChirp = (id) => {
-    alert('Button works');
-    $.ajax({
-        type: "DELETE",
-        url: `/api/chirps/:${id}`,
-        data: JSON,
-        success: function() {
-            console.log();
-            // $('ul').find('li' + id).remove();
-
-        }
-    })
-        .then(() => removeListItem());
-}
 
 const getAllChirps = () => {
     $.ajax({
@@ -28,9 +7,10 @@ const getAllChirps = () => {
         .then(chirps => {
             $('ul').empty();
             chirps.forEach(chirp => {
-                $('ul').append(`<li class="list-group-item"> 
-            ${chirp.text} 
-            <button onclick="deleteChirp()"> X </button>
+                $('ul').append(`<li id=${chirp.id} class="list-group-item"> 
+                [${chirp.id}] ${chirp.text}
+            <button id="updateBtn" data-toggle="modal" data-target="#updateModal" onclick="updateChirp(${chirp.id})"> Update </button>
+            <button id="deleteBtn" onclick="deleteChirp(${chirp.id})"> X </button>
             </li>`)
             })
         })
@@ -39,7 +19,7 @@ getAllChirps();
 
 const postChirp = (text) => {
     let newChirp = {
-        user: "Katze",
+        user: "SomeAnimal",
         text
     }
     $.ajax({
@@ -50,9 +30,35 @@ const postChirp = (text) => {
         .then(() => getAllChirps());
 };
 
-$('.btn').click(e => {
+$('.submitBtn').click(e => {
     e.preventDefault();
     let text = $('#text').val();
     postChirp(text);
     $('#text').val('');
 });
+
+const deleteChirp = (id) => {
+    alert('Delete button works');
+    $.ajax({
+        type: "DELETE",
+        url: `/api/chirps/:${id}`,
+        
+    })
+    .then(res => res.json())
+    .then(() => {
+        $('li#' + id).remove(); // li returns to ul upon refresh
+    })
+}
+getAllChirps();
+
+const updateChirp = () => {
+    $('#updateModal').modal();
+    $('#saveBtn').on('click', function () {
+        $('#text').html($('#newInput').val());
+    })
+};
+
+
+
+
+
