@@ -13,17 +13,35 @@
 </head>
 
 <body>
-    <h1 class="justify-content-center m-3">Chirper Demo</h1>
-    <form>
-        <input type="text" id="text">
-        <input class="btn btn-info submitBtn" type="submit" value="Chirp it!">
-    </form>
-    <ul class="list-group"></ul>
+    <main class="container m-5">
+        <section class="row justify-content-center">
+            <h1 class="justify-content-center m-1">Chirper Demo</h1>
+        </section>
+    </main>
 
-    <!-- Button trigger modal -->
-    <!-- <button type="button" class=" modalBtn btn btn-primary" data-toggle="modal" data-target="#updateModal">
-    Launch demo modal
-  </button> -->
+    <!-- New Chirp Card -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-info mb-5">
+                <div class="card-body">
+                    <h5 class="card-title">What's Chirpin'?</h5>
+                    <input class="mb-2 input-group" type="text" id="text" placeholder="Write your chirp here"></br>
+                    <input class="btn btn-info submitBtn" type="submit" value="Chirp it!">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Past Chirps -->
+    <main class="container">
+        <section class="row justify-content-center">
+            <h3 class="justify-content-center">Past Chirps</h3>
+        </section>
+    </main>
+    <div class="row justify-content-center">
+        <ul class="list-group col-md-6"></ul>
+    </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal"
@@ -37,7 +55,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="newInput"></input>
+                    <p>Write new chirp text here:</p>
+                    <input class="mb-2 input-group" type="text" id="newInput"></input>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

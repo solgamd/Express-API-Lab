@@ -11,13 +11,13 @@ router.get('/:id?', (req, res) => {
 
         let chirps = chirpstore.GetChirps();
         let data = Object.keys(chirps).map(key => {
-            return {                    //obj literal
+            return {                   
                 user: chirps[key].user,
                 text: chirps[key].text,
                 id: key
             }
         });        
-        data.pop();                        //array of objs 
+        data.pop();                        
         res.send(data);
     }
 });
